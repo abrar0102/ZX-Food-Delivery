@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Order</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5; /* Light grey background */
+        }
+
+        header {
+            background-color: #6c757d; /* Light grey header */
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #6c757d; /* Light grey links */
+            text-decoration: none;
+        }
+
+        section {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #6c757d; /* Light grey header for table */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; /* Alternate row color */
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #6c757d; /* Light grey button */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5a6268; /* Darker grey on hover */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Search Order</h1>
+    </header>
+    <nav>
+        <!-- Navigation links -->
+    </nav>
+    <section>
+        <input type="text" id="searchInput" placeholder="Enter keyword to search">
+        <button onclick="searchOrders()">Search</button>
+
+        <table id="orderTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Food Description</th>
+                    <th>Quantity</th>
+                    <th>User Name</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+                <!-- Table rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script>
+        // Sample order records
+        var orders = [
+            { orderId: 1, foodDescription: 'Pizza', quantity: 2, userName: 'John' },
+            { orderId: 2, foodDescription: 'Burger', quantity: 1, userName: 'Alice' },
+            { orderId: 3, foodDescription: 'Salad', quantity: 3, userName: 'Bob' },
+            // Add more order records here...
+        ];
+
+        // Function to display orders in the table
+        function displayOrders() {
+            var tableBody = document.getElementById('orderTableBody');
+            tableBody.innerHTML = '';
+
+            for (var i = 0; i < orders.length; i++) {
+                var order = orders[i];
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.foodDescription}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.userName}</td>
+                `;
+                tableBody.appendChild(newRow);
+            }
+        }
+
+        // Function to search for orders
+        function searchOrders() {
+            var keyword = document.getElementById('searchInput').value.toLowerCase();
+            var filteredOrders = orders.filter(function(order) {
+                return order.foodDescription.toLowerCase().includes(keyword) ||
+                       String(order.quantity).includes(keyword) ||
+                       order.userName.toLowerCase().includes(keyword);
+            });
+            displaySearchResults(filteredOrders);
+        }
+
+        // Function to display search results
+        function displaySearchResults(results) {
+            var tableBody = document.getElementById('orderTableBody');
+            tableBody.innerHTML = '';
+
+            for (var i = 0; i < results.length; i++) {
+                var order = results[i];
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${order.orderId}</td>
+                    <td>${order.foodDescription}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.userName}</td>
+                `;
+                tableBody.appendChild(newRow);
+            }
+        }
+
+        // Display initial order records on page load
+        displayOrders();
+    </script>
+</body>
+</html>

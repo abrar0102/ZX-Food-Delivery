@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove Order</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Remove Order</h1>
+    </header>
+    <nav>
+        <!-- Navigation links -->
+    </nav>
+    <section>
+        <h2>Order List</h2>
+        <table id="orderTable">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Food Description</th>
+                    <th>Quantity</th>
+                    <th>User Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+                <!-- Order rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </section>
+    <footer>
+        <!-- Footer content -->
+    </footer>
+
+    <script>
+        // Sample order records
+        var orders = [
+            { id: 1, foodDescription: 'Pizza', quantity: 2, userName: 'John' },
+            { id: 2, foodDescription: 'Burger', quantity: 1, userName: 'Alice' },
+            { id: 3, foodDescription: 'Salad', quantity: 3, userName: 'Bob' },
+            // Add more order records here...
+        ];
+
+        // Function to display orders in the table
+        function displayOrders() {
+            var tableBody = document.getElementById('orderTableBody');
+            tableBody.innerHTML = '';
+
+            orders.forEach(function(order) {
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${order.foodDescription}</td>
+                    <td>${order.quantity}</td>
+                    <td>${order.userName}</td>
+                    <td><button onclick="removeOrder(${order.id})">Remove</button></td>
+                `;
+                tableBody.appendChild(newRow);
+            });
+        }
+
+        // Function to remove an order
+        function removeOrder(orderId) {
+            var index = orders.findIndex(function(order) {
+                return order.id === orderId;
+            });
+
+            if (index !== -1) {
+                orders.splice(index, 1);
+                displayOrders();
+                alert('Order removed successfully!');
+            } else {
+                alert('Order not found!');
+            }
+        }
+
+        // Display initial order records on page load
+        displayOrders();
+    </script>
+</body>
+</html>
